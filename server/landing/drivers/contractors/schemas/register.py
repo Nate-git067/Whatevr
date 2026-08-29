@@ -62,7 +62,7 @@ class ContractorRegister(BaseModel):
     def model_check(self):
         if not all([self.first_name, self.last_name,
                     self.email, self.phonenumber]):
-            raise ValueError('')
+            raise ValueError('All fields need to be entered to register.')
 
         return self #-> returns the instance of the schema 
 

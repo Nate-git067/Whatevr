@@ -4,7 +4,8 @@ from fastapi.exceptions import HTTPException
 from fastapi import Depends
 from server.models.relational.registrations.merchants.merchants_registration import MerchantRegistration
 from server.landing.merchants.schemas.register import (
-    MerchantRegister
+    MerchantRegister,
+    MerchantRegisterResponse
 )
 from server.config.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -18,7 +19,7 @@ landing_router = APIRouter(prefix='/landing', tags=['Router for the landing page
 
 
 """Route for the merchant to register"""
-@landing_router.post('/merchant', response_model=GeneratorExit)
+@landing_router.post('/merchant', response_model=MerchantRegisterResponse)
 async def register_merchant(merchant_info:MerchantRegister, session_db:Annotated[AsyncSession, Depends(get_db)]):
     #database query for the merchant 
     try:
@@ -59,3 +60,8 @@ async def register_merchant(merchant_info:MerchantRegister, session_db:Annotated
             status_code=500,
             detail='Failed to save merchant registration to the database.'
         )
+
+    #response to the client 
+    return MerchantRegisterResponse(
+        response='Registration successful! We will contact you directly with any important updates regarding Whatevr.'
+    )
