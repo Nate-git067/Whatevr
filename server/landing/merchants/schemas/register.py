@@ -10,7 +10,7 @@ import re
 
 
 #Schema for the merchants registration
-class MerchantRegistration(BaseModel):
+class MerchantRegister(BaseModel):
     #personal attributes 
     first_name:str = None 
     last_name:str = None 
