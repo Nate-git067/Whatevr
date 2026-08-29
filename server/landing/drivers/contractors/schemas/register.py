@@ -32,7 +32,7 @@ class ContractorRegister(BaseModel):
             raise ValueError('First name is too long.')
 
         #checking the contents of the name 
-        pattern = r'[^A-Za-z]'
+        pattern = r"^[A-Za-z\s\-]+$"
         if re.search(pattern, name):
             raise ValueError('First name must contain only alphabetic characters.')
 

@@ -56,7 +56,7 @@ class MerchantRegister(BaseModel):
             raise ValueError('First name is too long. Please shorten your entry.')
     
         #checking the contents of the name 
-        pattern = r'[^a-zA-Z]'
+        pattern = r"^[A-Za-z\s\-]+$"
         if re.search(pattern, name):
             raise ValueError('First name cannot contain numbers or special characters.')
     
