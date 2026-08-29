@@ -60,10 +60,6 @@ class MerchantRegister(BaseModel):
         if re.search(pattern, name):
             raise ValueError('First name cannot contain numbers or special characters.')
     
-        #checking if any spaces in name 
-        if any(char.isspace() for char in name):
-            raise ValueError('First name cannot contain spaces.')
-    
         return name.title()
 
     #merchant store field 
@@ -72,11 +68,11 @@ class MerchantRegister(BaseModel):
     def store_name_check(cls, store:str) -> str:
         store = store.strip() #stripping leading and ending whitespace 
         if not store:
-            raise ValueError('')
+            raise ValueError('Store name is required. Please enter your business name.')
 
         #checking length of the store name 
         if len(store) > 100:
-            raise ValueError('')
+            raise ValueError('Store name is too long. Please shorten your business name entry.')
 
         return store #returning the store field 
 
@@ -85,6 +81,11 @@ class MerchantRegister(BaseModel):
     def model_check(self):
         if not all([self.first_name, self.last_name,
                     self.store_name, self.email, self.phonenumber]):
-            raise ValueError('')
+            raise ValueError('All fields must be entered to register.')
 
         return self #returning the schema instance 
+
+
+#Schema for the response to the client 
+class MerchantRegisterResponse(BaseModel):
+    response:str = None 
